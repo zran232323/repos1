@@ -1,0 +1,78 @@
+let brain;
+let runner;
+let distance = 0;
+let awardGiven = false;
+
+function setup() {
+  createCanvas(800, 400);
+  brain = new Brain();
+  runner = new Runner();
+}
+
+function draw() {
+  background(220);
+  runner.update();
+  runner.display();
+  distance += runner.speed;
+
+  if (distance >= 1000 && !awardGiven) {
+    giveAward();
+    awardGiven = true;
+  }
+
+  fill(0);
+  textSize(16);
+  text(`Distance: ${distance.toFixed(2)}`, 10, 20);
+}
+
+class Brain {
+  constructor() {
+    // Initialize brain properties
+  }
+
+  learn() {
+    // Learning algorithm
+  }
+}
+
+class Runner {
+  constructor() {
+    this.x = 50;
+    this.y = height - 50;
+    this.speed = 2;
+    this.brain = new Brain();
+  }
+
+  update() {
+    this.brain.learn();
+    this.x += this.speed;
+    if (this.x > width) {
+      this.x = 0;
+    }
+  }
+
+  display() {
+    fill(0);
+    ellipse(this.x, this.y, 50, 50); // Head
+    rect(this.x - 15, this.y + 25, 30, 50); // Body
+    line(this.x - 15, this.y + 25, this.x - 30, this.y + 75); // Left arm
+    line(this.x + 15, this.y + 25, this.x + 30, this.y + 75); // Right arm
+    line(this.x - 10, this.y + 75, this.x - 10, this.y + 100); // Left leg
+    line(this.x + 10, this.y + 75, this.x + 10, this.y + 100); // Right leg
+  }
+}
+
+function giveAward() {
+  fill(255, 215, 0);
+  textSize(32);
+  text('Award!', width / 2 - 50, height / 2);
+}
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+  <script src="sketch.js"></script>
+</head>
+<body>
+</body>
+</html>
